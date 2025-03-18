@@ -5,8 +5,8 @@
 - **Aluno 2**: Clebson Luiz da Silva (Matrícula: 20222380023)
 
 ## Topologia do Projeto
+![Topologia](./src/Pasted image 20250318144431.png)
 
-![[Pasted image 20250318144431.png]]
 ## Índice
 1. [AS 10 - Configurações](#as-10---configurações)
    - [PE-AS10](#pe-as10)
