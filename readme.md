@@ -6,7 +6,7 @@
 
 ## Topologia do Projeto
 
-![[Pasted image 20250318144431.png]]
+![Topologia](./src/Topologia.png)
 ## Índice
 1. [AS 10 - Configurações](#as-10---configurações)
    - [PE-AS10](#pe-as10)
@@ -27,7 +27,8 @@
 
 ## AS 10 - Configurações
 
-![[Pasted image 20250318144501.png]]
+![Topologia](./src/AS10.png)
+
 ### PE-AS10
 
 **Informações Básicas**:
@@ -127,7 +128,7 @@ route-map AS10-OUT permit 10
 
 ### PE-JP
 
-![[Pasted image 20250318144526.png]]
+![Topologia](./src/PE-JP.png)
 **Informações Básicas**:
 - **Hostname**: PE-JP
 - **Versão IOS**: 15.7
@@ -214,7 +215,7 @@ route-map DENY-PVT permit 10
 
 ### PE-CG
 
-![[Pasted image 20250318144559.png]]
+![Topologia](./src/PE-CG.png)
 
 **Informações Básicas**:
 - **Hostname**: PE-CG
@@ -303,17 +304,17 @@ vrf definition CLIENTE-01
 
 **Interfaces**:
 
-|Interface|Modo|Descrição|
-|---|---|---|
-|Ethernet0/0|Trunk 802.1q|Conexão trunk|
-|Ethernet0/1|Trunk 802.1q|Conexão trunk|
-|Ethernet0/2|Trunk 802.1q|Conexão trunk|
-|Ethernet0/3|Trunk 802.1q|Conexão trunk|
+| Interface   | Modo         | Descrição     |
+| ----------- | ------------ | ------------- |
+| Ethernet0/0 | Trunk 802.1q | Conexão trunk |
+| Ethernet0/1 | Trunk 802.1q | Conexão trunk |
+| Ethernet0/2 | Trunk 802.1q | Conexão trunk |
+| Ethernet0/3 | Trunk 802.1q | Conexão trunk |
 
 
 ### CPE1-JP
 
-![[Pasted image 20250318144635.png]]
+![Topologia](./src/CPE-JP.png)
 
 **Informações Básicas**:
 - **Hostname**: CPE1-JP
@@ -360,7 +361,7 @@ access-list 10 permit 192.168.0.0 0.0.0.255                   # Lista de acesso 
 
 ### CPE1-CG
 
-![[Pasted image 20250318144701.png]]
+![Topologia](./src/CPE-CG.png)
 
 **Informações Básicas**:
 - **Hostname**: CPE1-CG
@@ -394,7 +395,7 @@ router bgp 65000
 
 ### CPE2-CG
 
-![[Pasted image 20250318144721.png]]
+![Topologia](./src/CPE2-CG.png)
 
 **Informações Básicas**:
 - **Hostname**: CPE2-CG
@@ -438,7 +439,8 @@ access-list 10 permit 192.168.1.0 0.0.0.255                   # Lista de acesso 
 
 ## AS 20 - Configurações
 
-![[Pasted image 20250318144741.png]]
+![Topologia](./src/AS20.png)
+
 ### PE-AS20
 
 **Informações Básicas**:
@@ -482,7 +484,7 @@ ip route 1.1.40.1 255.255.255.255 10.0.24.6    # Rota alternativa
 
 ## AS 30 - Configurações
 
-![[Pasted image 20250318144759.png]]
+![Topologia](./src/AS30.png)
 ### PE-AS30
 
 **Informações Básicas**:
@@ -491,12 +493,12 @@ ip route 1.1.40.1 255.255.255.255 10.0.24.6    # Rota alternativa
 
 **Interfaces**:
 
-|Interface|Endereço IP|Descrição|
-|---|---|---|
-|Loopback0|1.1.30.1/32|Identificação do roteador|
-|Ethernet0/0|10.0.13.2/30|Conexão para AS10|
-|Ethernet0/1|10.0.34.1/30|Conexão para AS40|
-|Ethernet0/2|200.30.0.1/24|Rede pública|
+| Interface   | Endereço IP   | Descrição                 |
+| ----------- | ------------- | ------------------------- |
+| Loopback0   | 1.1.30.1/32   | Identificação do roteador |
+| Ethernet0/0 | 10.0.13.2/30  | Conexão para AS10         |
+| Ethernet0/1 | 10.0.34.1/30  | Conexão para AS40         |
+| Ethernet0/2 | 200.30.0.1/24 | Rede pública              |
 
 **Roteamento BGP**:
 ```
@@ -517,7 +519,7 @@ router bgp 30
 
 ## AS 40 - Configurações
 
-![[Pasted image 20250318144814.png]]
+![Topologia](./src/AS40.png)
 ### PE-AS40
 
 **Informações Básicas**:
@@ -526,13 +528,13 @@ router bgp 30
 
 **Interfaces**:
 
-|Interface|Endereço IP|Descrição|
-|---|---|---|
-|Loopback0|1.1.40.1/32|Identificação do roteador|
-|Ethernet0/0|10.0.24.2/30|Conexão para AS20|
-|Ethernet0/1|10.0.34.2/30|Conexão para AS30|
-|Ethernet0/2|10.0.24.6/30|Conexão alternativa para AS20|
-|Ethernet0/3|200.40.0.1/24|Rede pública|
+| Interface   | Endereço IP   | Descrição                     |
+| ----------- | ------------- | ----------------------------- |
+| Loopback0   | 1.1.40.1/32   | Identificação do roteador     |
+| Ethernet0/0 | 10.0.24.2/30  | Conexão para AS20             |
+| Ethernet0/1 | 10.0.34.2/30  | Conexão para AS30             |
+| Ethernet0/2 | 10.0.24.6/30  | Conexão alternativa para AS20 |
+| Ethernet0/3 | 200.40.0.1/24 | Rede pública                  |
 
 **Roteamento BGP**:
 ```
