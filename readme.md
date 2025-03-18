@@ -5,10 +5,6 @@
 - **Aluno 2**: Clebson Luiz da Silva (Matrícula: 20222380023)
 
 ## Topologia do Projeto
-<<<<<<< HEAD
-=======
-
->>>>>>> 165d9007382d60e1373d226798e264e4a17fb694
 ![Topologia](./src/Topologia.png)
 
 ## Índice
@@ -360,7 +356,7 @@ router bgp 65000
 ```
 ip nat inside source list 100 interface Ethernet0/0.10 overload  # Ativa NAT overload
 ip route 0.0.0.0 0.0.0.0 200.10.0.1                           # Rota padrão
-access-list 100 permit 192.168.0.0 0.0.0.255                   # Lista de acesso para NAT
+access-list 10 permit 192.168.0.0 0.0.0.255                   # Lista de acesso para NAT
 ```
 
 ### CPE1-CG
