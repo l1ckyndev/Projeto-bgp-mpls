@@ -2,7 +2,7 @@
 
 ## Informações dos Alunos
 - **Aluno 1**: Lucas Vinicius Barbosa Candido de Oliveira (Matrícula: 20222380034)
-- **Aluno 2**: CASSIO BASTOS ALVES (Matrícula: 20222380023)
+- **Aluno 2**: Clebson Luiz da Silva (Matrícula: 20222380023)
 
 ## Topologia do Projeto
 
