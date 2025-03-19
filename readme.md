@@ -5,12 +5,8 @@
 - **Aluno 2**: Clebson Luiz da Silva (Matrícula: 20222380023)
 
 ## Topologia do Projeto
-![Topologia](./src/Pasted image 20250318144431.png)
-
-<<<<<<< HEAD
 ![Topologia](./src/Topologia.png)
-=======
->>>>>>> 5e1e574738c4a6d7ae025d0d2d9dfdb3c4562e32
+
 ## Índice
 1. [AS 10 - Configurações](#as-10---configurações)
    - [PE-AS10](#pe-as10)
@@ -92,12 +88,12 @@
        # Configurações para vizinhos externos
        neighbor 10.0.12.2 activate
        neighbor 10.0.12.2 soft-reconfiguration inbound
-       neighbor 10.0.12.2 route-map PREPEND-1X out # Aplica prepend para saída
+       neighbor 10.0.12.2 route-map PREPEND-SAIDA out # Aplica prepend para saída
        
        neighbor 10.0.13.2 activate
        neighbor 10.0.13.2 soft-reconfiguration inbound
-       neighbor 10.0.13.2 route-map PRIORIZA-AS30 in # Prioriza rotas de AS30
-       neighbor 10.0.13.2 route-map AS10-OUT out    # Filtra rotas de saída
+       neighbor 10.0.13.2 route-map PREFERIR-AS30 in # Prioriza rotas de AS30
+       neighbor 10.0.13.2 route-map ANUNCIAR-REDES out # Filtra rotas de saída
      exit-address-family
      
      # Família VPNv4 para MPLS VPN
@@ -113,21 +109,21 @@
 **Route-Maps e Prefix-Lists**:
 ```
 # Prefix-lists
-ip prefix-list AS10-PL seq 10 permit 200.10.0.0/24
-ip prefix-list AS10-PL seq 15 permit 200.10.1.0/24
-ip prefix-list PREFIX-AS40 seq 5 permit 200.40.0.0/24
+ip prefix-list REDES-INTERNAS seq 10 permit 200.10.0.0/24
+ip prefix-list REDES-INTERNAS seq 15 permit 200.10.1.0/24
+ip prefix-list REDE-AS40 seq 5 permit 200.40.0.0/24
 
 # Route-maps
-route-map PREPEND-1X permit 10
- match ip address prefix-list AS10-PL
+route-map PREPEND-SAIDA permit 10
+ match ip address prefix-list REDES-INTERNAS
  set as-path prepend 10                # Prepend AS próprio uma vez
 
-route-map PRIORIZA-AS30 permit 10
- match ip address prefix-list PREFIX-AS40
+route-map PREFERIR-AS30 permit 10
+ match ip address prefix-list REDE-AS40
  set local-preference 200              # Define preferência local alta (padrão: 100)
 
-route-map AS10-OUT permit 10
- match ip address prefix-list AS10-PL  # Permite saída de prefixos específicos
+route-map ANUNCIAR-REDES permit 10
+ match ip address prefix-list REDES-INTERNAS  # Permite saída de prefixos específicos
 ```
 
 ### PE-JP
@@ -190,7 +186,7 @@ vrf definition CLIENTE-01
        neighbor 1.1.10.3 next-hop-self
        neighbor 10.64.9.2 activate
        neighbor 200.10.0.2 activate
-       neighbor 200.10.0.2 route-map DENY-PVT in # Bloqueia redes privadas
+       neighbor 200.10.0.2 route-map FILTRA-PRIVADOS in # Bloqueia redes privadas
      exit-address-family
      
      # Família VPNv4 (MPLS VPN)
@@ -210,11 +206,11 @@ vrf definition CLIENTE-01
 
 **Route-Maps e Prefix-Lists**:
 ```
-ip prefix-list AS10-PL seq 5 permit 200.10.0.0/24
-ip prefix-list PVT-PL seq 5 deny 192.168.0.0/16 # Bloqueia redes privadas
+ip prefix-list REDE-JP seq 5 permit 200.10.0.0/24
+ip prefix-list BLOQUEAR-PRIVADOS seq 5 deny 192.168.0.0/16 # Bloqueia redes privadas
 
-route-map DENY-PVT permit 10
-  match ip address prefix-list PVT-PL          # Aplica filtro para redes privadas
+route-map FILTRA-PRIVADOS permit 10
+  match ip address prefix-list BLOQUEAR-PRIVADOS          # Aplica filtro para redes privadas
 ```
 
 ### PE-CG
@@ -358,9 +354,9 @@ router bgp 65000
 
 **Configuração NAT**:
 ```
-ip nat inside source list 10 interface Ethernet0/0.10 overload  # Ativa NAT overload
+ip nat inside source list 100 interface Ethernet0/0.10 overload  # Ativa NAT overload
 ip route 0.0.0.0 0.0.0.0 200.10.0.1                           # Rota padrão
-access-list 10 permit 192.168.0.0 0.0.0.255                   # Lista de acesso para NAT
+access-list 100 permit 192.168.0.0 0.0.0.255                   # Lista de acesso para NAT
 ```
 
 ### CPE1-CG
@@ -434,9 +430,9 @@ router bgp 65001
 
 **Configuração NAT**:
 ```
-ip nat inside source list 10 interface Ethernet0/2.10 overload  # Ativa NAT overload
+ip nat inside source list 101 interface Ethernet0/2.10 overload  # Ativa NAT overload
 ip route 0.0.0.0 0.0.0.0 200.10.1.1                           # Rota padrão
-access-list 10 permit 192.168.1.0 0.0.0.255                   # Lista de acesso para NAT
+access-list 101 permit 192.168.1.0 0.0.0.255                   # Lista de acesso para NAT
 ```
 
 ---
